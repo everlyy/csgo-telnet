@@ -108,8 +108,7 @@ class CommandHandler:
 
 			# Check if incoming data is owner changing their name
 			name_change_pattern = re.compile(rf"\* {self.name}\u200E changed name to ")
-			name_change = name_change_pattern.match(decoded)
-			if name_change is not None:
+			if name_change_pattern.match(decoded) is not None:
 				new_name = name_change_pattern.sub("", decoded)
 				self.__log(f"Name change: {self.name} -> {new_name}")
 				self.name = new_name
