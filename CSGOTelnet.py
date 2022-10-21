@@ -70,18 +70,21 @@ class CommandHandler:
 		if self.__enable_logging:
 			print(f"CommandHandler: {message}")
 
-
 	def add_command(self, name, description, callback):
 		self.__chat_commands.append(ChatCommand(name, description, callback, False))
+		self.__log(f"Added command: \"{name}\" -> {callback.__name__}()")
 
 	def add_global_command(self, name, description, callback):
 		self.__chat_commands.append(ChatCommand(name, description, callback, True))
+		self.__log(f"Added global command: \"{name}\" -> {callback.__name__}()")
 
 	def add_echo_command(self, name, description, callback):
 		self.__echo_commands.append(EchoCommand(name, description, callback))
+		self.__log(f"Added echo command: \"{name}\" -> {callback.__name__}()")
 
 	def set_message_callback(self, callback):
 		self.__message_callback = callback
+		self.__log(f"Set __message_callback -> {callback.__name__}()")
 
 	def start(self):
 		self.__log(f"Starting CommandHandler")
@@ -115,6 +118,7 @@ class CommandHandler:
 				continue
 
 			if decoded.startswith(self.echo_prefix):
+				self.__log(f"Incoming data starts with echo prefix.")
 				cmd_str = decoded[len(self.echo_prefix):]
 				self.__handle_echo_command(cmd_str)
 				continue
@@ -171,6 +175,8 @@ class CommandHandler:
 		return None
 
 	def __send(self, cmd):
+		send_start_time = time.time()
+
 		encoded = f"{cmd}\n".encode("utf-8")
 		self.__log(f"OUT {len(encoded)} bytes to {self.ip}:{self.port}")
 
@@ -179,6 +185,9 @@ class CommandHandler:
 		sender = telnetlib.Telnet(self.ip, self.port)
 		sender.write(encoded)
 		sender.close()
+
+		send_time = time.time() - send_start_time
+		self.__log(f"__send() took {round(send_time * 1000, 2)}ms")
 
 	def __help_command(self, message, args):
 		command = self.__get_cmd_by_name(message, self.chat_prefix + args.strip())
