@@ -118,6 +118,7 @@ class CommandHandler:
 			if decoded.startswith(self.echo_prefix):
 				cmd_str = decoded[len(self.echo_prefix):]
 				self.__handle_echo_command(cmd_str)
+				continue
 
 			# Check if incoming data is chat message
 			if chat_message_pattern.match(decoded) is not None:
