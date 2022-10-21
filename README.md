@@ -67,6 +67,8 @@ if __name__ == "__main__":
 
 # Screenshots
 
+These are all results from the example.
+
 ### Help Command
 ![Help Command](screenshots/help-command.png)
 
