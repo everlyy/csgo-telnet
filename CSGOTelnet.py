@@ -132,7 +132,7 @@ class CommandHandler:
 
 	def __handle_echo_command(self, cmd_str):
 		for command in self.__echo_commands:
-			if cmd_str.startswith(command.name):
+			if cmd_str.startswith(f"{command.name} ") or cmd_str == command.name:
 				args = cmd_str[len(command.name) + 1:]
 				for cmd in command.callback(args):
 					self.__send(cmd)
@@ -162,7 +162,7 @@ class CommandHandler:
 	def __get_cmd_by_name(self, message, checkstr):
 		for command in self.__chat_commands:
 			check = f"{self.chat_prefix}{command.name}"
-			if checkstr.startswith(check):
+			if checkstr.startswith(f"{check} ") or checkstr == check:
 				if not command.is_global and not message.is_owner:
 					continue
 
