@@ -65,6 +65,12 @@ if __name__ == "__main__":
 	handler.start()
 ```
 
+# Limitations
+
+* (Will be fixed) If you have a command `!ping` and someone does `!pinglol` it will still recognize it as `!ping`.
+* (Will be fixed) If you change your name mid-game it won't update automatically.
+* Chat parsing only works if CS:GO is in the game's English (Custom languages won't work if you changed the way chat looks). If you set a different langauge, you'll have to change some things in `ChatMessage`
+
 # Screenshots
 
 These are all results from the example.
