@@ -96,7 +96,7 @@ class CommandHandler:
 			return
 
 		chat_message_pattern = re.compile(r".*[\u200E]\s(@.*|):\s+")
-
+		
 		self.__log(f"Waiting for incoming data...")
 		self.__send("echo CSGOTelnet started.")
 
@@ -105,6 +105,15 @@ class CommandHandler:
 			self.__log(f"INC {len(incoming)} bytes from {self.ip}:{self.port}")
 
 			decoded = incoming.decode("utf-8").replace("\n", " ").replace("\r", "").strip()
+
+			# Check if incoming data is owner changing their name
+			name_change_pattern = re.compile(rf"\* {self.name}\u200E changed name to ")
+			name_change = name_change_pattern.match(decoded)
+			if name_change is not None:
+				new_name = name_change_pattern.sub("", decoded)
+				self.__log(f"Name change: {self.name} -> {new_name}")
+				self.name = new_name
+				continue
 
 			if decoded.startswith(self.echo_prefix):
 				cmd_str = decoded[len(self.echo_prefix):]
