@@ -176,7 +176,7 @@ class CommandHandler:
 		if command:
 			return f"{'say_team' if message.is_team_chat else 'say'} {command.name}: {command.description}"
 
-		newline = " "
+		newline = "\u2029"
 		help_message = f"chat prefix: '{self.chat_prefix}' echo prefix: '{self.echo_prefix}'"
 
 		global_cmds = []
