@@ -29,7 +29,7 @@ class ChatMessage:
 		name_char_separator = " : "
 
 		# I don't know why this appears after everyone's name, but it's making parsing messages alot easier
-		char_after_name = "‎"
+		char_after_name = "\u200E"
 
 		self.full_message = full_message
 		self.pre_content = self.full_message.split(name_char_separator)[0].split(char_after_name)[0].strip()
