@@ -64,3 +64,14 @@ if __name__ == "__main__":
 	#  anything after this will NOT run because this function will sit in a loop forever
 	handler.start()
 ```
+
+# Screenshots
+
+### Help Command
+![Help Command](screenshots/help-command.png)
+
+### Time Command
+![Help Command](screenshots/time-command.png)
+
+### Logging Output
+![Logging Output](screenshots/logging-output.png)
