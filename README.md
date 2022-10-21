@@ -6,8 +6,7 @@ Little program to use the `-netconport` launch option in CS:GO for chat commands
 
 Set launch option `-netconport PORT`. PORT can be any port you want as long as you change it in your program aswell. 
 
-Next you can just take a look at [example.py](https://github.com/everlyy/csgo-telnet/blob/main/example.py)
-
+Example script:
 ```py
 import CSGOTelnet
 import random
