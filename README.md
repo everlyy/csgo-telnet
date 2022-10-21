@@ -70,6 +70,8 @@ if __name__ == "__main__":
 * (Will be fixed) If you have a command `!ping` and someone does `!pinglol` it will still recognize it as `!ping`.
 * (Will be fixed) If you change your name mid-game it won't update automatically.
 * Chat parsing only works if CS:GO is in the game's English (Custom languages won't work if you changed the way chat looks). If you set a different langauge, you'll have to change some things in `ChatMessage`
+* Chat messages are delayed by 0.7s if the owner is the one executing the command. This makes sure CS:GO doesn't block the message because you're sending messages too fast.
+* The program can only read/write to console. If something doesn't show up in console this utility can't react to it.
 
 # Screenshots
 
