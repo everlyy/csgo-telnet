@@ -63,6 +63,7 @@ class CommandHandler:
 		self.__enable_logging = enable_logging
 
 		self.__message_callback = None
+		self.__namechange_callback = None
 		self.__chat_commands = []
 		self.__echo_commands = []
 
@@ -85,6 +86,10 @@ class CommandHandler:
 	def set_message_callback(self, callback):
 		self.__message_callback = callback
 		self.__log(f"Set __message_callback -> {callback.__name__}()")
+
+	def set_namechange_callback(self, callback):
+		self.__namechange_callback = callback
+		self.__log(f"Set __namechange_callback -> {callback.__name__}()")
 
 	def start(self):
 		self.__log(f"Starting CommandHandler")
@@ -112,9 +117,14 @@ class CommandHandler:
 			# Check if incoming data is owner changing their name
 			name_change_pattern = re.compile(rf"\* {self.name}\u200E changed name to ")
 			if name_change_pattern.match(decoded) is not None:
-				new_name = name_change_pattern.sub("", decoded)
-				self.__log(f"Name change: {self.name} -> {new_name}")
-				self.name = new_name
+				old_name = self.name
+				self.name = name_change_pattern.sub("", decoded)
+				self.__log(f"Name change: {old_name} -> {self.name}")
+
+				# Call namechange callback if it's set
+				if self.__namechange_callback:
+					self.__namechange_callback(old_name, self.name)
+
 				continue
 
 			if decoded.startswith(self.echo_prefix):

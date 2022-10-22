@@ -32,6 +32,10 @@ PORT = 2121
 def on_message(message):
 	print(f"Incoming message: {message}")
 
+# Example on_namechange handler
+def on_namechange(old_name, new_name):
+	print(f"Changed name from {old_name} to {new_name}")
+
 # Example owner-only command, this just sends your local time in chat
 def gettime(message, args):
 	current_time = time.strftime("%H:%M", time.localtime())
@@ -54,6 +58,9 @@ if __name__ == "__main__":
 	
 	# Register the message callback
 	handler.set_message_callback(on_message)
+
+	# Register the namechange callback
+	handler.set_namechange_callback(on_namechange)
 
 	# Add all the commands
 	handler.add_command("time", "shows the current time", gettime)
