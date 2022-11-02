@@ -32,12 +32,12 @@ class ChatMessage:
 		char_after_name = "\u200E"
 
 		self.full_message = full_message
-		self.pre_content = self.full_message.split(name_char_separator)[0].split(char_after_name)[0].strip()
+		self.pre_content = self.full_message.split(name_char_separator, maxsplit=1)[0].split(char_after_name, maxsplit=1)[0].strip()
 		self.message_author = self.pre_content
-		self.message_content = self.full_message.split(name_char_separator)[1].strip()
+		self.message_content = self.full_message.split(name_char_separator, maxsplit=1)[1].strip()
 
 		if self.__contains_one_of([ ct_team_prefix, t_team_prefix, dead_prefix ], self.full_message):
-			self.message_author = self.full_message[self.full_message.index(" "):].split(char_after_name)[0].strip()
+			self.message_author = self.full_message[self.full_message.index(" "):].split(char_after_name, maxsplit=1)[0].strip()
 
 		self.is_team_chat = self.__contains_one_of([ ct_team_prefix, t_team_prefix ], self.pre_content)
 		self.is_owner = self.message_author == owner_name
