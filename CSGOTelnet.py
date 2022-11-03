@@ -154,8 +154,8 @@ class CommandHandler:
 	def __handle_echo_command(self, cmd_str):
 		for command in self.__echo_commands:
 			if cmd_str.startswith(f"{command.name} ") or cmd_str == command.name:
-				args = cmd_str[len(command.name) + 1:]
-				for cmd in command.callback(args):
+				args = cmd_str[len(command.name):]
+				for cmd in command.callback(args.strip()):
 					self.send(cmd)
 				break
 
