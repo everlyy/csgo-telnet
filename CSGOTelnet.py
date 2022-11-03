@@ -174,8 +174,8 @@ class CommandHandler:
 		if not command:
 			return
 
-		args = message.message_content[len(check) + 1:]
-		for cmd in command.callback(message, args):
+		args = message.message_content[len(check):]
+		for cmd in command.callback(message, args.strip()):
 			if message.is_owner and (cmd.startswith("say") or cmd.startswith("say_team")):
 				time.sleep(.7)
 			self.send(cmd)
