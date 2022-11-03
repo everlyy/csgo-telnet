@@ -1,6 +1,11 @@
 import telnetlib
 import time
 import re
+import os
+
+def csgotelnet_stop(message, args):
+	yield "echo CSGOTelnet stopping."
+	os._exit(0)
 
 class ChatCommand:
 	def __init__(self, name, description, callback, is_global):
@@ -66,6 +71,8 @@ class CommandHandler:
 		self.__namechange_callback = None
 		self.__chat_commands = []
 		self.__echo_commands = []
+
+		self.add_command("stop", "Stops CSGOTelnet", csgotelnet_stop)
 
 	def __log(self, message):
 		if self.__enable_logging:
