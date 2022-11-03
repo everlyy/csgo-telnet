@@ -106,7 +106,7 @@ class CommandHandler:
 		chat_message_pattern = re.compile(r".*[\u200E]\s(@.*|):\s+")
 		
 		self.__log(f"Waiting for incoming data...")
-		self.__send("echo CSGOTelnet started.")
+		self.send("echo CSGOTelnet started.")
 
 		while True:
 			incoming = listener.read_until(b"\n")
@@ -149,7 +149,7 @@ class CommandHandler:
 			if cmd_str.startswith(f"{command.name} ") or cmd_str == command.name:
 				args = cmd_str[len(command.name) + 1:]
 				for cmd in command.callback(args):
-					self.__send(cmd)
+					self.send(cmd)
 				break
 
 	def __handle_chat_message(self, message):
@@ -161,7 +161,7 @@ class CommandHandler:
 		if message.message_content.startswith(check) and message.is_owner:
 			args = message.message_content[len(check):]
 			time.sleep(.7)
-			self.__send(self.__help_command(message, args))
+			self.send(self.__help_command(message, args))
 
 		command = self.__get_cmd_by_name(message, message.message_content)
 		if not command:
@@ -171,7 +171,7 @@ class CommandHandler:
 		for cmd in command.callback(message, args):
 			if message.is_owner and (cmd.startswith("say") or cmd.startswith("say_team")):
 				time.sleep(.7)
-			self.__send(cmd)
+			self.send(cmd)
 
 	def __get_cmd_by_name(self, message, checkstr):
 		for command in self.__chat_commands:
@@ -184,7 +184,7 @@ class CommandHandler:
 				return command
 		return None
 
-	def __send(self, cmd):
+	def send(self, cmd):
 		send_start_time = time.time()
 
 		encoded = f"{cmd}\n".encode("utf-8")
@@ -197,7 +197,7 @@ class CommandHandler:
 		sender.close()
 
 		send_time = time.time() - send_start_time
-		self.__log(f"__send() took {round(send_time * 1000, 2)}ms")
+		self.__log(f"send() took {round(send_time * 1000, 2)}ms")
 
 	def __help_command(self, message, args):
 		command = self.__get_cmd_by_name(message, self.chat_prefix + args.strip())
