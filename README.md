@@ -81,6 +81,7 @@ if __name__ == "__main__":
 # TODO
 
 * Get name from Steam using API call, so you don't have to change your name in the code manually.
+* Handle commands on seperate thread.
 
 # Screenshots
 
