@@ -73,6 +73,8 @@ handler.commands.add_echo_command("crosshair", "sets a random crosshair color", 
 handler.start(IP, PORT)
 ```
 
+More examples can be found in the `examples` folder.
+
 # Limitations
 
 * Chat parsing only works if CS:GO is in the game's English (Custom languages won't work if you changed the way chat looks). If you set a different langauge, you'll have to change some things in `ChatMessage`
