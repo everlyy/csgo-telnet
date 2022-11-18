@@ -3,6 +3,7 @@ from CSGOTelnet import Logger
 from datetime import datetime
 import csv
 import re
+import time
 
 # Name and prefixes don't matter, since this little program doesn't use them
 YOUR_NAME = "everly"
@@ -21,17 +22,20 @@ handler = CommandHandler.CommandHandler(COMMAND_PREFIX, ECHO_COMMAND_PREFIX, YOU
 def on_incoming_data(data):
 	# Regex to match jumpstats.
 	# I only tested them on brutalcs servers, so I don't know if this will work on other servers (probably not).
-	
+
 	#                         distance             strafes    pre                 max        height              sync       crouch    -forward
 	lj_pattern = re.compile(r"([0-9]*[.][0-9]+).*\[([0-9]+).* ([0-9]*[.][0-9]+).* ([0-9]+).* ([0-9]*[.][0-9]+).* ([0-9]+)%.*(yes|no).*(yes|no)")
 	matches = lj_pattern.findall(data.decode("utf-8"))
 	if len(matches) > 0:
 		with open(statsfile_name, "a") as file:
 			writer = csv.writer(file)
+
+			# Add current time as first element
+			matches[0].insert(0, int(time.time()))
 			writer.writerow(matches[0])
 
 if __name__ == "__main__":
-	fields = ["distance", "strafes", "pre", "max", "height", "sync", "crouchjump", "-forward"]
+	fields = ["time", "distance", "strafes", "pre", "max", "height", "sync", "crouchjump", "-forward"]
 	with open(statsfile_name, "w") as file:
 		writer = csv.writer(file)
 		writer.writerow(fields)
