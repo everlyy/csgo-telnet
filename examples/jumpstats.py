@@ -29,10 +29,8 @@ def on_incoming_data(data):
 	if len(matches) > 0:
 		with open(statsfile_name, "a") as file:
 			writer = csv.writer(file)
-
-			# Add current time as first element
-			matches[0].insert(0, int(time.time()))
-			writer.writerow(matches[0])
+			to_write = [int(time.time())] + list(matches[0])
+			writer.writerow(to_write)
 
 if __name__ == "__main__":
 	fields = ["time", "distance", "strafes", "pre", "max", "height", "sync", "crouchjump", "-forward"]
