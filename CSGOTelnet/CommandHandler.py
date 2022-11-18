@@ -13,6 +13,7 @@ class CommandHandler:
 		self.owner_name = owner_name
 		self.commands = Commands.Commands()
 
+		self.__on_incoming_data_callback = None
 		self.__on_message_callback = None
 		self.__on_name_change_callback = None
 
@@ -22,6 +23,10 @@ class CommandHandler:
 		self.__queue_processor_started = False
 
 		self.logger = Logger.Logger(log_level)
+
+	def set_on_incoming_data(self, callback):
+		self.logger.dbg(f"New __on_incoming_data_callback: {callback.__name__}()")
+		self.__on_incoming_data_callback = callback
 
 	def set_on_message(self, callback):
 		self.logger.dbg(f"New __on_message_callback: {callback.__name__}()")
@@ -72,6 +77,9 @@ class CommandHandler:
 
 	def __handle_incoming_thread(self, data_in):
 		self.logger.dbg(f"Received {len(data_in)} bytes from {self.__ip}:{self.__port}")
+
+		if self.__on_incoming_data_callback:
+			self.__on_incoming_data_callback(data_in)
 
 		received = data_in.decode("utf-8").replace("\n", " ").replace("\r", "").strip()
 

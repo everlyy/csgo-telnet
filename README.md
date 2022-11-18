@@ -36,6 +36,12 @@ handler = CommandHandler.CommandHandler(COMMAND_PREFIX, ECHO_COMMAND_PREFIX, YOU
 def on_message(message):
 	print(f"New message from {message.get_author()}: \"{message.get_content()}\"")
 
+# Example on_incoming_data
+# This gets called every time the telnet connection reads a line
+def on_incoming_data(data):
+	decoded = data.decode("utf-8")
+	print(f"Incoming: {decoded}")
+
 # Example on_namechange handler
 def on_name_change(old_name, new_name):
 	print(f"Owner changed name from {old_name} to {new_name}!")
@@ -56,6 +62,9 @@ def crosshair_color(args):
 	handler.queue(f"cl_crosshaircolor_r {random.randint(0, 255)}")
 	handler.queue(f"cl_crosshaircolor_g {random.randint(0, 255)}")
 	handler.queue(f"cl_crosshaircolor_b {random.randint(0, 255)}")
+
+# Register incoming data callback
+handler.set_on_incoming_data(on_incoming_data)
 
 # Register on message callback
 handler.set_on_message(on_message)
