@@ -34,13 +34,13 @@ handler = CommandHandler.CommandHandler(COMMAND_PREFIX, ECHO_COMMAND_PREFIX, YOU
 
 # Example on_message handler
 def on_message(message):
-	print(f"New message from {message.get_author()}: \"{message.get_content()}\"")
+	handler.logger.info(f"New message from {message.get_author()}: \"{message.get_content()}\"")
 
 # Example on_incoming_data
 # This gets called every time the telnet connection reads a line
 def on_incoming_data(data):
-	decoded = data.decode("utf-8")
-	print(f"Incoming: {decoded}")
+	decoded = data.decode("utf-8").replace("\n", " ").replace("\r", "").strip()
+	handler.logger.dbg(f"Incoming: {decoded}")
 
 # Example on_namechange handler
 def on_name_change(old_name, new_name):
