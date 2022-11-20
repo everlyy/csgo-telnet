@@ -14,7 +14,7 @@ PORT = 2121
 
 # Filename to write jumpstats to.
 # Will look something like stats_18_11_2022_22_19_11.csv
-date = datetime.now().strftime("%-d_%-m_%Y_%-H_%-M_%-S")
+date = datetime.now().strftime("%d_%m_%Y_%H_%M_%S")
 statsfile_name = f"stats_{date}.csv"
 
 handler = CommandHandler.CommandHandler(COMMAND_PREFIX, ECHO_COMMAND_PREFIX, YOUR_NAME, Logger.LogLevel.DEBUG)
