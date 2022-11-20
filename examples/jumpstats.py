@@ -31,6 +31,7 @@ def on_incoming_data(data):
 			writer = csv.writer(file)
 			to_write = [int(time.time())] + list(matches[0])
 			writer.writerow(to_write)
+		handler.logger.info(f"Saved jump: {matches[0][0]} units ({matches[0][1]} strafes @ {matches[0][5]}% sync)")
 
 if __name__ == "__main__":
 	fields = ["time", "distance", "strafes", "pre", "max", "height", "sync", "crouchjump", "-forward"]
