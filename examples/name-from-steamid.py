@@ -16,6 +16,9 @@ PORT = 2121
 handler = CommandHandler.CommandHandler(COMMAND_PREFIX, ECHO_COMMAND_PREFIX, Logger.LogLevel.DEBUG)
 
 # This will make a Steam API call and get your profile name.
+# You will get a message in your terminal saying something like
+#   INFO: Got name from Steam API: 76561198446630909 -> "everly"
+# Or an error if something went wrong.
 handler.set_name_from_steamid(APIKEY, YOUR_STEAMID)
 
 handler.start(IP, PORT)
