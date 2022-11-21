@@ -26,7 +26,7 @@ def on_incoming_data(data):
 	lj_pattern = re.compile(r"([0-9]*[.][0-9]+).*\[([0-9]+).* ([0-9]*[.][0-9]+).* ([0-9]+).* ([0-9]*[.][0-9]+).* ([0-9]+)%.*(yes|no).*(yes|no)")
 	matches = lj_pattern.findall(data.decode("utf-8"))
 	if len(matches) > 0:
-		with open(statsfile_name, "a") as file:
+		with open(statsfile_name, "a", newline='', encoding='utf-8') as file:
 			writer = csv.writer(file)
 			to_write = [int(time.time())] + list(matches[0])
 			writer.writerow(to_write)
@@ -34,7 +34,7 @@ def on_incoming_data(data):
 
 if __name__ == "__main__":
 	fields = ["time", "distance", "strafes", "pre", "max", "height", "sync", "crouchjump", "-forward"]
-	with open(statsfile_name, "w") as file:
+	with open(statsfile_name, "w", newline='', encoding='utf-8') as file:
 		writer = csv.writer(file)
 		writer.writerow(fields)
 
