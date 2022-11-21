@@ -16,7 +16,7 @@ PORT = 2121
 date = datetime.now().strftime("%d_%m_%Y_%H_%M_%S")
 statsfile_name = f"stats_{date}.csv"
 
-handler = CommandHandler.CommandHandler(COMMAND_PREFIX, ECHO_COMMAND_PREFIX, Logger.LogLevel.DEBUG)
+handler = CommandHandler.CommandHandler(COMMAND_PREFIX, ECHO_COMMAND_PREFIX, Logger.LogLevel.INFO)
 
 def on_incoming_data(data):
 	# Regex to match jumpstats.
