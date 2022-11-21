@@ -1,6 +1,8 @@
 # CSGO Telnet
 
-Little program to use the `-netconport` launch option in CS:GO for chat commands.
+Little program to use the `-netconport` launch option in CS:GO for chat commands and more.
+
+NOTE: This project isn't really made to be a "download and run" script. You have to know atleast some python to create your own script.
 
 # How to use
 
