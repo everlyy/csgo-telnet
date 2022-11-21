@@ -1,6 +1,7 @@
 from . import ChatMessage
 from . import Commands
 from . import Logger
+from . import GetName
 import re
 import telnetlib
 import threading
@@ -27,6 +28,14 @@ class CommandHandler:
 	def set_owner_name(self, owner_name):
 		self.logger.dbg(f"New owner_name: \"{owner_name}\"")
 		self.owner_name = owner_name
+
+	def set_name_from_steamid(self, apikey, steamid):
+		result = GetName.get_name(apikey, steamid)
+		if not result.success:
+			self.logger.err(f"Unable to get owner name with Steam API: {result.status_code}: {result.reason}")
+			return
+		self.logger.info(f"Got name from Steam API: {steamid} -> \"{result.name}\"")
+		self.set_owner_name(result.name)
 
 	def set_on_incoming_data(self, callback):
 		self.logger.dbg(f"New __on_incoming_data_callback: {callback.__name__}()")

@@ -93,10 +93,6 @@ More examples can be found in the `examples` folder.
 * Chat messages are delayed by 0.7s if the owner is the one executing the command. This makes sure CS:GO doesn't block the message because you're sending messages too fast.
 * The program can only read/write to console. If something doesn't show up in console this utility can't react to it.
 
-# TODO
-
-* Get name from Steam using API call, so you don't have to change your name in the code manually.
-
 # Screenshots
 
 These are all results from the example.
