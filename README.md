@@ -4,7 +4,9 @@ Little program to use the `-netconport` launch option in CS:GO for chat commands
 
 # How to use
 
-Set launch option `-netconport PORT`. PORT can be any port you want as long as you change it in your program aswell. 
+First of all, set this launch option for CS:GO: `-netconport 2121`. This can be any port, just make sure to also set the right port in your script. \
+Then you can copy an example, or create a new script and do anything fancy you want with it. \
+Easiest is to copy `examples/full-example.py` and change that to have the commands and features you want.
 
 # Examples
 
