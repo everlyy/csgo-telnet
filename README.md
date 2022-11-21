@@ -30,7 +30,7 @@ IP = "127.0.0.1"
 PORT = 2121
 
 # You can omit the LOG_LEVEL argument and it will default to INFO
-handler = CommandHandler.CommandHandler(COMMAND_PREFIX, ECHO_COMMAND_PREFIX, YOUR_NAME, LOG_LEVEL)
+handler = CommandHandler.CommandHandler(COMMAND_PREFIX, ECHO_COMMAND_PREFIX, LOG_LEVEL)
 
 # Example on_message handler
 def on_message(message):
@@ -62,6 +62,9 @@ def crosshair_color(args):
 	handler.queue(f"cl_crosshaircolor_r {random.randint(0, 255)}")
 	handler.queue(f"cl_crosshaircolor_g {random.randint(0, 255)}")
 	handler.queue(f"cl_crosshaircolor_b {random.randint(0, 255)}")
+
+# Set owner name
+handler.set_owner_name(YOUR_NAME)
 
 # Register incoming data callback
 handler.set_on_incoming_data(on_incoming_data)

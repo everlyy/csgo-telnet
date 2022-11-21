@@ -7,11 +7,11 @@ import threading
 import time
 
 class CommandHandler:
-	def __init__(self, chat_prefix, echo_prefix, owner_name, log_level=Logger.LogLevel.INFO):
+	def __init__(self, chat_prefix, echo_prefix, log_level=Logger.LogLevel.INFO):
 		self.chat_prefix = chat_prefix
 		self.echo_prefix = echo_prefix
-		self.owner_name = owner_name
 		self.commands = Commands.Commands()
+		self.owner_name = None
 
 		self.__on_incoming_data_callback = None
 		self.__on_message_callback = None
@@ -23,6 +23,10 @@ class CommandHandler:
 		self.__queue_processor_started = False
 
 		self.logger = Logger.Logger(log_level)
+
+	def set_owner_name(self, owner_name):
+		self.logger.dbg(f"New owner_name: \"{owner_name}\"")
+		self.owner_name = owner_name
 
 	def set_on_incoming_data(self, callback):
 		self.logger.dbg(f"New __on_incoming_data_callback: {callback.__name__}()")
@@ -37,6 +41,9 @@ class CommandHandler:
 		self.__on_name_change_callback = callback
 
 	def start(self, ip, port):
+		if self.owner_name is None:
+			self.logger.warn(f"Owner name is not set. Owner-only commands won't work.")
+
 		self.__ip = ip
 		self.__port = port
 
@@ -102,9 +109,7 @@ class CommandHandler:
 
 	def __handle_name_change(self, name_change_pattern, received):
 		old_name = self.owner_name
-		self.owner_name = name_change_pattern.sub("", received)
-		
-		self.logger.info(f"Name change! \"{old_name}\" -> \"{self.owner_name}\"")
+		self.set_owner_name(name_change_pattern.sub("", received))
 
 		if self.__on_name_change_callback:
 			self.__on_name_change_callback(old_name, self.owner_name)

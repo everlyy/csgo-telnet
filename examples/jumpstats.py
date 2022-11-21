@@ -6,7 +6,6 @@ import re
 import time
 
 # Name and prefixes don't matter, since this little program doesn't use them
-YOUR_NAME = "everly"
 COMMAND_PREFIX = "!"
 ECHO_COMMAND_PREFIX = "###"
 IP = "127.0.0.1"
@@ -17,7 +16,7 @@ PORT = 2121
 date = datetime.now().strftime("%d_%m_%Y_%H_%M_%S")
 statsfile_name = f"stats_{date}.csv"
 
-handler = CommandHandler.CommandHandler(COMMAND_PREFIX, ECHO_COMMAND_PREFIX, YOUR_NAME, Logger.LogLevel.DEBUG)
+handler = CommandHandler.CommandHandler(COMMAND_PREFIX, ECHO_COMMAND_PREFIX, Logger.LogLevel.DEBUG)
 
 def on_incoming_data(data):
 	# Regex to match jumpstats.

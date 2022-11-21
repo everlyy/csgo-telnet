@@ -17,7 +17,7 @@ clanids = [
 	43162091  # t katbo
 ]
 
-handler = CommandHandler.CommandHandler("!", "###", YOUR_NAME, Logger.LogLevel.INFO)
+handler = CommandHandler.CommandHandler("!", "###", Logger.LogLevel.INFO)
 
 do_clantag = False
 def clan_thread_func(handler):
@@ -42,6 +42,7 @@ def clan(message, args):
 	handler.queue(f"{'say_team' if message.is_team_chat() else 'say'} moving clantag: {'yes' if do_clantag else 'no'}")
 
 if __name__ == "__main__":
+	handler.set_owner_name(YOUR_NAME)
 	handler.commands.add_owner_command("clan", "moving clantag", clan)
 
 	thread = threading.Thread(target=clan_thread_func, args=(handler, ))
