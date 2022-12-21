@@ -1,4 +1,8 @@
-import requests
+requests_installed = True
+try:
+	import requests
+except:
+	requests_installed = False
 
 class PlayerNameResponse:
 	def __init__(self, success, status_code, reason, name):
@@ -8,6 +12,9 @@ class PlayerNameResponse:
 		self.name = name
 
 def get_name(apikey, steamid):
+	if not requests_installed:
+		return PlayerNameResponse(False, -1, "Couldn't import requests to make HTTP request to Steam API", None)
+
 	params = {
 		"key": apikey,
 		"steamids": steamid
